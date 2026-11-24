@@ -1,21 +1,21 @@
 from translate import Translator
 from collections import defaultdict
 
-questions = {"adın ne " : "ben bir sohbet botuyum",
+questions = {"adın ne?" : "ben bir sohbet botuyum",
              "kaç yaşındasın?": "bu çok felsefi bir soru..."}
 
 class TextAnalysis():
     
     memory = defaultdict(list)
 
-    def __init__(self, text, owner):
+    def __init__(self, text: str, owner):
 
         TextAnalysis.memory[owner].append(self)
 
         self.text = text
         self.translation = self.__translate(self.text, "tr", "en")
 
-        if self.text in questions.keys():
+        if self.text.lower().strip() in [i.lower().strip() for i in questions.keys()]:
             self.response = questions[self.text]
         else:
             self.response = self.get_answer() 
